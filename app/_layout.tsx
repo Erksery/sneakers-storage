@@ -1,39 +1,115 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import {
+  DarkTheme,
+  DefaultTheme as NavigationDefaultTheme,
+  ThemeProvider,
+} from "@react-navigation/native";
+import { MD3DarkTheme, MD3LightTheme, PaperProvider } from "react-native-paper";
+import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
+import { useEffect, useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { useColorScheme } from "@/hooks/useColorScheme";
+import { UserProvider } from "../components/context/UserData.jsx";
+import "react-native-reanimated";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
+// Оставляем Splash Screen на экране до загрузки приложения
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const [isReady, setIsReady] = useState(false);
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    Peninim: require("../assets/fonts/Peninim.ttf"),
+    NunitoBlack: require("../assets/fonts/Nunito-Black.ttf"),
+    NunitoBold: require("../assets/fonts/Nunito-Bold.ttf"),
+    NunitoRegular: require("../assets/fonts/Nunito-Regular.ttf"),
   });
 
   useEffect(() => {
     if (loaded) {
-      SplashScreen.hideAsync();
+      setTimeout(async () => {
+        setIsReady(true);
+        await SplashScreen.hideAsync();
+      }, 3000);
     }
   }, [loaded]);
 
-  if (!loaded) {
-    return null;
+  if (!isReady) {
+    return (
+      <LinearGradient
+        colors={["#48B2E7", "#0076B1"]}
+        style={styles.splashContainer}
+      >
+        <View style={styles.splashTextContainer}>
+          <Text style={styles.splashText}>MATULE</Text>
+          <Text style={styles.subSplashText}>ME</Text>
+        </View>
+      </LinearGradient>
+    );
   }
 
+  const lightTheme = {
+    ...NavigationDefaultTheme,
+    ...MD3LightTheme,
+    colors: {
+      ...NavigationDefaultTheme.colors,
+      ...MD3LightTheme.colors,
+      primary: "#48B2E7",
+    },
+  };
+
+  const darkTheme = {
+    ...DarkTheme,
+    ...MD3DarkTheme,
+    colors: {
+      ...DarkTheme.colors,
+      ...MD3DarkTheme.colors,
+      primary: "#bb86fc",
+    },
+  };
+
+  const currentTheme = colorScheme === "dark" ? darkTheme : lightTheme;
+
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <UserProvider>
+      <ThemeProvider value={currentTheme}>
+        <PaperProvider theme={currentTheme}>
+          <Stack screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="(drawer)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+            <Stack.Screen name="registration" />
+            <Stack.Screen name="auth" />
+            <Stack.Screen name="forgot" />
+          </Stack>
+          <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
+        </PaperProvider>
+      </ThemeProvider>
+    </UserProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  splashContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  splashTextContainer: {
+    flexDirection: "row",
+    gap: 5,
+  },
+  splashText: {
+    fontSize: 42,
+    fontWeight: 700,
+    color: "white",
+  },
+  subSplashText: {
+    textAlignVertical: "top",
+    fontSize: 15,
+    color: "white",
+  },
+});
