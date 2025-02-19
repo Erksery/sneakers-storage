@@ -43,7 +43,7 @@ export default function TabBarComponent({
     {
       name: "cart",
       route: "/cart",
-      icon: (isActive) => <CartSvg color={isActive ? "#48B2E7" : "#A0A0A0"} />,
+      icon: (isActive) => <CartSvg color="white" />,
       justify: "center",
     },
     {

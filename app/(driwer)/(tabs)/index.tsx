@@ -13,6 +13,7 @@ import Feather from "@expo/vector-icons/Feather";
 
 import CategoryButton from "@/components/layouts/CategoryButton";
 import ProductCard from "@/components/layouts/ProductCard";
+import SettingSvg from "@/components/svg/SettingSvg";
 
 export default function TabHomeScreen() {
   const [products, setProducts] = useState([]);
@@ -70,13 +71,17 @@ export default function TabHomeScreen() {
               </ThemedText>
             </TouchableOpacity>
             <TouchableOpacity style={styles.filterButton}>
-              <Feather name="list" size={24} color="white" />
+              <SettingSvg color="white" />
             </TouchableOpacity>
           </View>
 
           <View style={styles.block}>
             <ThemedText type="default">Категории</ThemedText>
-            <ScrollView horizontal={true} overScrollMode="never">
+            <ScrollView
+              horizontal={true}
+              overScrollMode="never"
+              showsHorizontalScrollIndicator={false}
+            >
               <View style={styles.categoryContainer}>
                 <CategoryButton name={"Все"} />
                 {categories &&
@@ -101,7 +106,11 @@ export default function TabHomeScreen() {
               </TouchableOpacity>
             </View>
 
-            <ScrollView horizontal={true} overScrollMode="never">
+            <ScrollView
+              horizontal={true}
+              overScrollMode="never"
+              showsHorizontalScrollIndicator={false}
+            >
               <View style={styles.categoryContainer}>
                 {products &&
                   products.map((product) => (

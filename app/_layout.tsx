@@ -73,6 +73,7 @@ export default function RootLayout() {
             <Stack.Screen name="registration" />
             <Stack.Screen name="auth" />
             <Stack.Screen name="forgot" />
+            <Stack.Screen name="[product]" />
           </Stack>
           <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
         </PaperProvider>

@@ -4,8 +4,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ThemedText } from "@/components/ThemedText";
 import { Button } from "react-native-paper";
 import { useNavigation } from "expo-router";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import Feather from "@expo/vector-icons/Feather";
+import MenuSvg from "@/components/svg/MenuSvg";
+import CartSvg from "@/components/svg/CartSvg";
 
 export default function HomeHeader() {
   const navigation = useNavigation();
@@ -19,7 +19,7 @@ export default function HomeHeader() {
           style={styles.menu}
           contentStyle={{ borderRadius: 10 }}
         >
-          <Feather name="menu" size={24} color="black" />
+          <MenuSvg />
         </Button>
         <ThemedText type="title">Главная</ThemedText>
         <Button
@@ -28,7 +28,7 @@ export default function HomeHeader() {
           style={[styles.menu, { backgroundColor: "white" }]}
           contentStyle={{ borderRadius: 40 }}
         >
-          <Ionicons name="bag-outline" size={21} color="black" />
+          <CartSvg color="black" />
         </Button>
       </View>
     </SafeAreaView>

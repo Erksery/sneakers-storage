@@ -4,10 +4,15 @@ import { ThemedText } from "../ThemedText";
 
 import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { Link, useRouter } from "expo-router";
 
 export default function ProductCard({ product }) {
+  const router = useRouter();
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity
+      onPress={() => router.push(`/product/${product.name}`)}
+      style={styles.card}
+    >
       <TouchableOpacity style={styles.likeButton}>
         <FontAwesome6 name="heart" size={14} color="#2B2B2B" />
       </TouchableOpacity>

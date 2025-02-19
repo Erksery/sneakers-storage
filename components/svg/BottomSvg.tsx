@@ -7,7 +7,7 @@ const BottomMenu = () => (
   <Svg
     style={{
       position: "absolute",
-      bottom: -45,
+      bottom: -30,
       zIndex: 10,
     }}
     width={width}

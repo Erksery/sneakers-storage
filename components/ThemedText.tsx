@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: 400,
     lineHeight: 36,
-    fontFamily: "NunitoRegular",
+    fontFamily: "NunitoBold",
   },
   subtitle: {
     fontSize: 20,
