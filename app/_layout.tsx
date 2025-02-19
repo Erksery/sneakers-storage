@@ -15,7 +15,6 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import { UserProvider } from "../components/context/UserData.jsx";
 import "react-native-reanimated";
 
-// Оставляем Splash Screen на экране до загрузки приложения
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -62,17 +61,7 @@ export default function RootLayout() {
     },
   };
 
-  const darkTheme = {
-    ...DarkTheme,
-    ...MD3DarkTheme,
-    colors: {
-      ...DarkTheme.colors,
-      ...MD3DarkTheme.colors,
-      primary: "#bb86fc",
-    },
-  };
-
-  const currentTheme = colorScheme === "dark" ? darkTheme : lightTheme;
+  const currentTheme = lightTheme;
 
   return (
     <UserProvider>

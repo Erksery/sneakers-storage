@@ -4,6 +4,7 @@ import { useUser } from "@/components/context/UserData";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { supabase } from "@/supabase";
 import { useRouter } from "expo-router";
+import BottomMenuSvg from "@/components/svg/BottomSvg";
 
 export default function profile() {
   const [loading, setLoading] = useState(true);
@@ -38,7 +39,7 @@ export default function profile() {
 const styles = StyleSheet.create({
   contentPage: {
     flex: 1,
-    padding: 20,
+
     backgroundColor: "#F7F7F9",
   },
 });

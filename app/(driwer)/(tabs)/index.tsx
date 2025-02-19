@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import {
   View,
-  Text,
-  ActivityIndicator,
-  FlatList,
   Image,
   TouchableOpacity,
   StyleSheet,
@@ -63,8 +60,8 @@ export default function TabHomeScreen() {
 
   return (
     <ContentPage>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ gap: 20 }}>
+      <ScrollView showsVerticalScrollIndicator={false} overScrollMode="never">
+        <View style={{ gap: 20, paddingBottom: 100 }}>
           <View style={{ flexDirection: "row", width: "100%", gap: 10 }}>
             <TouchableOpacity style={styles.searchContainer}>
               <Feather name="search" size={18} color="#6A6A6A" />
@@ -129,10 +126,10 @@ export default function TabHomeScreen() {
             </View>
 
             {promotions && (
-              <TouchableOpacity key={promotions[0].id}>
+              <TouchableOpacity key={promotions[0]?.id}>
                 <Image
                   style={{ height: 100, borderRadius: 16 }}
-                  source={{ uri: promotions[0].image_url }}
+                  source={{ uri: promotions[0]?.image_url }}
                 />
               </TouchableOpacity>
             )}

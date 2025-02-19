@@ -25,7 +25,7 @@ export default function ProductCard({ product }) {
         </ThemedText>
       </View>
       <View style={styles.bottomContainer}>
-        <ThemedText style={{ fontSize: 14 }}>${product.price}</ThemedText>
+        <ThemedText style={{ fontSize: 14 }}>₽{product.price}</ThemedText>
         <TouchableOpacity style={styles.plusButton}>
           <Entypo name="plus" size={24} color="white" />
         </TouchableOpacity>
