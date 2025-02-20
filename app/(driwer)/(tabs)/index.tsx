@@ -6,63 +6,38 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import { supabase } from "@/supabase";
+
 import { ThemedText } from "@/components/ThemedText";
 import ContentPage from "@/components/ui/ContentPage/ContentPage";
 import Feather from "@expo/vector-icons/Feather";
-
 import CategoryButton from "@/components/layouts/CategoryButton";
 import ProductCard from "@/components/layouts/ProductCard";
 import SettingSvg from "@/components/svg/SettingSvg";
+import { useSelector } from "react-redux";
+
+import useGetProducts from "@/hooks/products/useGetProducts";
+import useGetCategories from "@/hooks/categories/useGetCategories";
+import useGetPromotions from "@/hooks/promotions/useGetPromotions";
+import { Redirect } from "expo-router";
 
 export default function TabHomeScreen() {
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [promotions, setPromotions] = useState([]);
-  const [loading, setLoading] = useState(true);
+  useGetProducts();
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const { data, error } = await supabase.from("products").select("*");
+  const products = useSelector((state) => state.products.products);
 
-      if (error) {
-        console.error("Ошибка при получении данных:", error.message);
-      } else {
-        setProducts(data);
-      }
+  const { categories } = useGetCategories();
+  const { promotions } = useGetPromotions();
 
-      setLoading(false);
-    };
-
-    const getCategories = async () => {
-      try {
-        const { data } = await supabase.from("categories").select("*");
-        setCategories(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    const getPromotions = async () => {
-      try {
-        const { data } = await supabase.from("promotions").select("*");
-        setPromotions(data);
-        console.log(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    getCategories();
-    fetchProducts();
-    getPromotions();
-  }, []);
-
-  //if (loading) return <ActivityIndicator size="large" color="#6200ee" />;
+  if (true) {
+    return <Redirect href="/onboard" />;
+  }
+  console.log(products);
 
   return (
     <ContentPage>
       <ScrollView showsVerticalScrollIndicator={false} overScrollMode="never">
         <View style={{ gap: 20, paddingBottom: 100 }}>
+          {/* Поиск и фильтр */}
           <View style={{ flexDirection: "row", width: "100%", gap: 10 }}>
             <TouchableOpacity style={styles.searchContainer}>
               <Feather name="search" size={18} color="#6A6A6A" />
@@ -75,6 +50,7 @@ export default function TabHomeScreen() {
             </TouchableOpacity>
           </View>
 
+          {/* Категории */}
           <View style={styles.block}>
             <ThemedText type="default">Категории</ThemedText>
             <ScrollView
@@ -91,6 +67,8 @@ export default function TabHomeScreen() {
               </View>
             </ScrollView>
           </View>
+
+          {/* Популярные продукты */}
           <View style={styles.block}>
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
@@ -119,6 +97,8 @@ export default function TabHomeScreen() {
               </View>
             </ScrollView>
           </View>
+
+          {/* Акции */}
           <View style={styles.block}>
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}

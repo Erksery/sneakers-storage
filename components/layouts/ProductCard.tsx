@@ -4,13 +4,26 @@ import { ThemedText } from "../ThemedText";
 
 import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 
 export default function ProductCard({ product }) {
   const router = useRouter();
+
   return (
     <TouchableOpacity
-      onPress={() => router.push(`/product/${product.name}`)}
+      onPress={() =>
+        router.push({
+          pathname: `/product/${product.id}`,
+          params: {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            image_url: product.image_url,
+            description: product.description,
+            category_name: product.category_name,
+          },
+        })
+      }
       style={styles.card}
     >
       <TouchableOpacity style={styles.likeButton}>
