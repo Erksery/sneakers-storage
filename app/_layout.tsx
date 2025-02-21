@@ -86,6 +86,13 @@ export default function RootLayout() {
                   header: () => <AboutHeader title="Sneakers Shop" />,
                 }}
               />
+              <Stack.Screen
+                name="popular"
+                options={{
+                  headerShown: true,
+                  header: () => <AboutHeader title="Популярное" />,
+                }}
+              />
             </Stack>
             <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
           </PaperProvider>

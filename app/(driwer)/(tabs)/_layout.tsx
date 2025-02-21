@@ -2,6 +2,8 @@ import { Tabs } from "expo-router";
 import React from "react";
 import HomeHeader from "@/components/layouts/headers/HomeHeader";
 import TabBarComponent from "@/components/layouts/TabBarComponent";
+import AboutHeader from "@/components/layouts/headers/AboutHeader";
+import FavoriteSvg from "@/components/svg/FavoriteSvg";
 
 export default function TabLayout() {
   return (
@@ -24,6 +26,12 @@ export default function TabLayout() {
         options={{
           title: "favorite",
           headerShown: true,
+          header: () => (
+            <AboutHeader
+              title="Избранное"
+              buttonIcon={<FavoriteSvg color="black" />}
+            />
+          ),
         }}
       />
       <Tabs.Screen

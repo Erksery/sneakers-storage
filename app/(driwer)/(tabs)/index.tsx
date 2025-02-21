@@ -6,7 +6,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ThemedText } from "@/components/ThemedText";
 import ContentPage from "@/components/ui/ContentPage/ContentPage";
 import Feather from "@expo/vector-icons/Feather";
@@ -21,6 +21,7 @@ import useGetPromotions from "@/hooks/promotions/useGetPromotions";
 import { Redirect } from "expo-router";
 
 export default function TabHomeScreen() {
+  const [isFirstTime, setIsFirstTime] = useState<boolean | null>(null);
   useGetProducts();
 
   const products = useSelector((state) => state.products.products);
@@ -28,10 +29,27 @@ export default function TabHomeScreen() {
   const { categories } = useGetCategories();
   const { promotions } = useGetPromotions();
 
-  if (true) {
+  useEffect(() => {
+    const checkFirstTime = async () => {
+      const firstTime = await AsyncStorage.getItem("firstTime");
+      if (firstTime === null) {
+        setIsFirstTime(true);
+        await AsyncStorage.setItem("firstTime", "false");
+      } else {
+        setIsFirstTime(false);
+      }
+    };
+
+    checkFirstTime();
+  }, []);
+
+  if (isFirstTime === null) {
+    return null;
+  }
+
+  if (false) {
     return <Redirect href="/onboard" />;
   }
-  console.log(products);
 
   return (
     <ContentPage>

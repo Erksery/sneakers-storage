@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
 
     resizeMode: "contain",
 
-    transform: [{ rotate: "-20deg" }, { scale: 1.3 }],
+    transform: [{ rotate: "-20deg" }, { scale: 1.4 }],
   },
   button: {
     justifyContent: "center",

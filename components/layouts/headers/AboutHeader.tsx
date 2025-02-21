@@ -6,7 +6,10 @@ import BackSvg from "@/components/svg/BackSvg";
 import CartSvg from "@/components/svg/CartSvg";
 import { useRouter } from "expo-router";
 
-export default function AboutHeader({ title = "About" }) {
+export default function AboutHeader({
+  title = "About",
+  buttonIcon = <CartSvg color="black" />,
+}) {
   const router = useRouter();
   return (
     <SafeAreaView style={styles.header}>
@@ -15,9 +18,7 @@ export default function AboutHeader({ title = "About" }) {
           <BackSvg />
         </TouchableOpacity>
         <ThemedText type="defaultSemiBold">{title}</ThemedText>
-        <TouchableOpacity style={styles.button}>
-          <CartSvg color="black" />
-        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>{buttonIcon}</TouchableOpacity>
       </View>
     </SafeAreaView>
   );

@@ -6,7 +6,7 @@ import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useRouter } from "expo-router";
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, width, height }) {
   const router = useRouter();
 
   return (
@@ -24,7 +24,7 @@ export default function ProductCard({ product }) {
           },
         })
       }
-      style={styles.card}
+      style={[styles.card, { minWidth: width, minHeight: height }]}
     >
       <TouchableOpacity style={styles.likeButton}>
         <FontAwesome6 name="heart" size={14} color="#2B2B2B" />
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     gap: 8,
     alignItems: "center",
+    justifyContent: "space-between",
   },
   likeButton: {
     position: "absolute",

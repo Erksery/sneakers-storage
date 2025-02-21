@@ -14,7 +14,6 @@ export default function Onboard() {
 
   const { width, height } = Dimensions.get("window");
 
-  // Метод рендера для каждого экрана
   const renderItem = ({ item }) => (
     <View style={[styles.screen, { width }]}>{item.component}</View>
   );
@@ -28,13 +27,13 @@ export default function Onboard() {
       <FlatList
         data={screens}
         renderItem={renderItem}
-        keyExtractor={(item) => item.key} // Используем key для уникальности
-        horizontal={true} // Горизонтальная прокрутка
-        pagingEnabled={true} // Страничный режим: прокручиваем по экрану
-        showsHorizontalScrollIndicator={false} // Убираем индикатор прокрутки
-        snapToInterval={width} // Срабатывает на ширину экрана
-        decelerationRate="fast" // Быстрое замедление прокрутки
-        bounces={false} // Отключаем эффект отскока
+        keyExtractor={(item) => item.key}
+        horizontal={true}
+        pagingEnabled={true}
+        showsHorizontalScrollIndicator={false}
+        snapToInterval={width}
+        decelerationRate="fast"
+        bounces={false}
       />
     </LinearGradient>
   );
